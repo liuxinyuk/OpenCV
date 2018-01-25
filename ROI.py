@@ -15,3 +15,8 @@ imgroi= ROI & frame            #图像位与
 ROI = np.zeros(frame.shape[:2], dtype = "uint8")   #单通道灰度图
 cv2.circle(ROI, (cx,cy), d, 255, -1)    #画白园
 imgroi = cv2.bitwise_and(frame, frame, mask=ROI)
+
+#如果是多边形
+#多边形填充
+ROI = np.zeros(frame.shape[:2], dtype = "uint8")   #单通道灰度图
+ROI = cv2.fillConvexPoly(ROI,polygon_np,255)   #polygon_np是一个array类型的nx2的矩阵
