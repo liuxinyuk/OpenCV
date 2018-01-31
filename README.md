@@ -9,5 +9,5 @@ from json to cv2 array
 
 ## Rename
 rename all the imgfiles in one folder
-Style1:00000N
-Style2:imagesN
+  - Style1:00000N
+  - Style2:imagesN
