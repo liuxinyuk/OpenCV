@@ -14,15 +14,15 @@ def on_mouse(event, x, y, flags, param):
     temp = img.copy()
     if event == cv2.EVENT_LBUTTONDOWN:         #左键点击
         point1 = (x,y)
-        cv2.circle(temp, point1, 10, (0,255,0), 5)
+        cv2.circle(temp, point1, 10, (0,255,0), 3)
         cv2.imshow('image', temp)
     elif event == cv2.EVENT_MOUSEMOVE and (flags & cv2.EVENT_FLAG_LBUTTON):      #按住左键拖曳
-        cv2.rectangle(temp, point1, (x,y), (255,0,0), 5)
+        cv2.rectangle(temp, point1, (x,y), (255,0,0), 3)
         cv2.imshow('image', temp)
         cv2.waitKey(100)
     elif event == cv2.EVENT_LBUTTONUP:         #左键释放
         point2 = (x,y)
-        cv2.rectangle(img, point1, point2, (0,0,255), 5) 
+        cv2.rectangle(img, point1, point2, (0,0,255), 3) 
         cv2.imshow('image', img)
         min_x = min(point1[0],point2[0])     
         min_y = min(point1[1],point2[1])
@@ -74,7 +74,8 @@ if __name__ == '__main__':
                 isquit = 1
                 break
             elif getkb == ord('s'):
-                cut_img = img[min_y:min_y+height, min_x:min_x+width]
+                #为了避免保存到画线时候的红色边界，要+-3
+                cut_img = img[min_y+3:min_y+height-3, min_x+3:min_x+width-3]
                 cv2.imwrite(path+"\\CropImages\\"+prename[0:len(prename)-len(str(cnt))]+str(cnt)+".jpg",cut_img)
                 print ("save to "+prename[0:len(prename)-len(str(cnt))]+str(cnt)+".jpg")
                 cnt += 1
