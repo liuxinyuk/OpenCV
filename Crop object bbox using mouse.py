@@ -10,7 +10,6 @@ count=1
 def on_mouse(event, x, y, flags, param):
     global img, point1, point2
     global min_x,min_y,width,height
-    rawimg = img.copy()
     temp = img.copy()
     if event == cv2.EVENT_LBUTTONDOWN:         #左键点击
         point1 = (x,y)
@@ -62,6 +61,7 @@ if __name__ == '__main__':
         if os.path.isdir(imgdir):continue   #如果是文件夹则跳过
         global img,cut_img
         img = cv2.imread(imgdir)
+        rawimg = img.copy() 
         cv2.namedWindow('image',0)
         while(img.shape[0]>0):
             
@@ -74,8 +74,7 @@ if __name__ == '__main__':
                 isquit = 1
                 break
             elif getkb == ord('s'):
-                #为了避免保存到画线时候的红色边界，要+-3
-                cut_img = img[min_y+3:min_y+height-3, min_x+3:min_x+width-3]
+                cut_img = rawimg[min_y:min_y+height, min_x:min_x+width]
                 cv2.imwrite(path+"\\CropImages\\"+prename[0:len(prename)-len(str(cnt))]+str(cnt)+".jpg",cut_img)
                 print ("save to "+prename[0:len(prename)-len(str(cnt))]+str(cnt)+".jpg")
                 cnt += 1
